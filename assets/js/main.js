@@ -254,3 +254,43 @@
   new PureCounter();
 
 })()
+
+
+// Certificate Filter
+
+window.addEventListener('load', () => {
+  let certificateContainer = document.querySelector('.certificate-container');
+  if (certificateContainer) {
+
+    let certificateIsotope = new Isotope(certificateContainer, {
+      itemSelector: '.certificate-item'
+    });
+
+    let certificateFilters = document.querySelectorAll('#certificate-flters li');
+
+    certificateFilters.forEach(function(el) {
+      el.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        // remove active & style
+        certificateFilters.forEach(function(btn) {
+          btn.classList.remove('filter-active');
+          btn.style.background = "#ddd";
+          btn.style.color = "#444";
+        });
+
+        // add active to clicked button
+        this.classList.add('filter-active');
+        this.style.background = "#444";
+        this.style.color = "#fff";
+
+        certificateIsotope.arrange({
+          filter: this.getAttribute('data-filter')
+        });
+      });
+    });
+  }
+});
+
+
+
